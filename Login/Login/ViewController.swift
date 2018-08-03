@@ -45,6 +45,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
         passWordTextField.rightViewMode = .always
         passWordTextField.rightView = enablePasswordButton
         enablePasswordButton.addTarget(self, action: #selector(self.tapEnablePassword(_:)), for: .touchUpInside)
+        enablePasswordButton.isHidden = true
     }
     @objc func tapEnablePassword(_ button: UIButton!) {
         if passWordTextField.isSecureTextEntry {
@@ -53,6 +54,16 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } else {
             enablePasswordButton.setImage(UIImage(named: "icView.png"), for: .normal)
             passWordTextField.isSecureTextEntry = true
+        }
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == passWordTextField {
+            enablePasswordButton.isHidden = false
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == passWordTextField && passWordTextField.text == "" {
+            enablePasswordButton.isHidden = true
         }
     }
     @objc func onTapFogotLabel() {
